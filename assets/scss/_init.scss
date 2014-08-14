@@ -1,0 +1,67 @@
+/* 
+ *
+ *  Init
+ *      
+ */
+
+
+@import "compass/utilities";
+@import "compass/css3";
+
+
+/*
+ *
+ *  Colors
+ *
+ */
+
+$black: 	#111;
+$standard:  #555;
+$turquoise: #06a5ca;
+
+
+/*
+ *
+ *  Sprites
+ *
+ */
+ 
+$mag-i-layout: smart; 
+$mag-i-sprite-dimensions: true;
+@import "../images/mag-i/*.png";
+
+// retina map
+$i2x: sprite-map("mag-i2x/*.png", $layout: smart);
+
+
+
+/*
+ *
+ *  Mixins
+ *
+ */
+
+@mixin reset() {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@mixin icon($icon) {
+	@include mag-i-sprite($icon);
+	display: inline-block;
+	vertical-align: top;
+	text-indent: -99999px;
+	text-align: left;
+}
+
+@mixin retina($sprite, $resize: false) {
+    // background-image: sprite-url($i2x);
+    @if $resize {
+        height: image-height(sprite-file($i2x, $sprite)) / 2 !important;
+        width: image-width(sprite-file($i2x, $sprite)) / 2 !important; 
+    }
+    background-size: (image-width(sprite-path($i2x)) / 2) (image-height(sprite-path($i2x)) / 2) !important;
+    background-position: round(nth(sprite-position($i2x, $sprite), 1) / 2) round(nth(sprite-position($i2x, $sprite), 2) / 2) !important;
+
+} 
